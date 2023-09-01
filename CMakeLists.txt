@@ -29,7 +29,7 @@ endif()
 
 
 # Add the directory containing CMakeLists.txt for the third-party libraries
-add_subdirectory(${CMAKE_SOURCE_DIR}/lib/wxWidgets)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/lib/wxWidgets)
 
 # ---- Add source files ----
 
