@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14...3.22)
 
-project(PROJ_NAME_EXAMPLE LANGUAGES CXX)
+project(VisualisExamples LANGUAGES CXX)
 
 # --- Import tools ----
 
@@ -16,14 +16,16 @@ CPMAddPackage(
   OPTIONS "CXXOPTS_BUILD_EXAMPLES NO" "CXXOPTS_BUILD_TESTS NO" "CXXOPTS_ENABLE_INSTALL YES"
 )
 
-CPMAddPackage(NAME PROJ_NAME SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
+CPMAddPackage(NAME Visualis SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
 
 # ---- Create standalone executable ----
 
-file(GLOB sources CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
+set(SOURCES
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp"
+)
 
-add_executable(${PROJECT_NAME} ${sources})
+add_executable(${PROJECT_NAME} ${SOURCES})
 
-set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17 OUTPUT_NAME PROJ_NAME)
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17 OUTPUT_NAME Visualis)
 
-target_link_libraries(${PROJECT_NAME} PROJ_NAME::PROJ_NAME cxxopts)
+target_link_libraries(${PROJECT_NAME} Visualis::Visualis cxxopts)

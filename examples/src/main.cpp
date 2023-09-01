@@ -1,6 +1,11 @@
-#include <PROJ_NAME/PROJ_NAME.h>
+#include <Visualis/Visualis.h>
 
-auto main(int argc, char** argv) -> int {
-    std::cout << PROJ_NAME::greet() << std::endl;
-    return 0;
-}
+DECLARE_APP(GrApp);
+
+IMPLEMENT_APP(GrApp);
+
+// Event table for GrFrame
+BEGIN_EVENT_TABLE(MainFrame, wxFrame)
+    EVT_MENU(wxID_ABOUT, MainFrame::OnAbout)
+    EVT_MENU(wxID_EXIT, MainFrame::OnQuit)
+END_EVENT_TABLE()

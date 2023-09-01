@@ -1,10 +1,19 @@
+#############################################################################
+# Name:        CMakeLists.txt
+# Purpose:     Primary CMake for Visualis
+# Author:      Gavin Roberts
+# Created:     2023-09-
+# Copyright:   (c) 2023 Gavin Roberts
+# Licence:     MIT License
+#############################################################################
+
 cmake_minimum_required(VERSION 3.14...3.22)
 
 # ---- Project ----
 
 # Note: update this to your new project's name and version
 project(
-  PROJ_NAME
+  Visualis
   VERSION 1.0
   LANGUAGES CXX
 )
@@ -18,29 +27,27 @@ if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
   )
 endif()
 
-# ---- Add dependencies via CPM ----
 
-include(cmake/CPM.cmake)
-CPMAddPackage("gh:TheLartians/PackageProject.cmake@1.8.0")
-
-CPMAddPackage(
-  NAME fmt
-  GIT_TAG 9.1.0
-  GITHUB_REPOSITORY fmtlib/fmt
-  OPTIONS "FMT_INSTALL YES" # create an installable target
-)
+# Add the directory containing CMakeLists.txt for the third-party libraries
+add_subdirectory(${CMAKE_SOURCE_DIR}/lib/wxWidgets)
 
 # ---- Add source files ----
 
 # Note: globbing sources is considered bad practice as CMake's generators may not detect new files
 # automatically. Keep that in mind when changing files, or explicitly mention them here.
 set(HEADERS 
-  "${CMAKE_CURRENT_SOURCE_DIR}/include/PROJ_NAME/Core.h"
-  "${CMAKE_CURRENT_SOURCE_DIR}/include/PROJ_NAME/PROJ_NAME.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/Visualis/Core.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/Visualis/GrApp.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/Visualis/IQParser.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/Visualis/MainFrame.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/Visualis/Visualis.h"
 )
 
 set(SOURCES 
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/PROJ_NAME.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/GrApp.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/IQParser.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/MainFrame.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/Visualis.cpp"
 )
 
 # ---- Create library ----
@@ -54,7 +61,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17)
 target_compile_options(${PROJECT_NAME} PUBLIC "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/permissive->")
 
 # Link dependencies
-target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
+target_link_libraries(${PROJECT_NAME} PRIVATE )
 
 target_include_directories(
   ${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
@@ -68,14 +75,6 @@ target_include_directories(
 # header paths
 string(TOLOWER ${PROJECT_NAME}/version.h VERSION_HEADER_LOCATION)
 
-packageProject(
-  NAME ${PROJECT_NAME}
-  VERSION ${PROJECT_VERSION}
-  NAMESPACE ${PROJECT_NAME}
-  BINARY_DIR ${PROJECT_BINARY_DIR}
-  INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include
-  INCLUDE_DESTINATION include/${PROJECT_NAME}-${PROJECT_VERSION}
-  VERSION_HEADER "${VERSION_HEADER_LOCATION}"
-  COMPATIBILITY SameMajorVersion
-  DEPENDENCIES "fmt 9.1.0"
-)
+
+
+
