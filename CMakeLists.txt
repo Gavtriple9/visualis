@@ -4,7 +4,7 @@
 # Author:      Gavin Roberts
 # Created:     2023-09-
 # Copyright:   (c) 2023 Gavin Roberts
-# Licence:     MIT License
+# License:     MIT License
 #############################################################################
 
 cmake_minimum_required(VERSION 3.14...3.22)
